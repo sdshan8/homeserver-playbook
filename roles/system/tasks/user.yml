@@ -1,0 +1,19 @@
+- name: Ensure all necessary groups are created
+  group:
+    name: "{{ item }}"
+  loop:
+    - docker
+    - samba
+    - "{{ username }}"
+
+- name: Ensure non-Root user is created
+  user:
+    name: "{{ username }}"
+    password: "{{ password | password_hash('sha512') }}"
+    groups:
+      - sudo
+      - docker
+      - users
+    append: true
+    shell: "{{ shell }}"
+    update_password: on_create

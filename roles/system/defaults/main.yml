@@ -1,0 +1,5 @@
+username: shan
+packages:
+  - vim
+password: changeme
+shell: /bin/bash

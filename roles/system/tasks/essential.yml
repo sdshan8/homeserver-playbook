@@ -1,0 +1,17 @@
+- name: Update Packages
+  apt:
+    update_cache: yes
+    upgrade: yes
+
+- name: Install Essential Packages
+  package:
+    name: "{{ packages }}"
+    state: latest
+
+- name: Enable passwdless sudo for sudo group
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: '^%sudo'
+    line: '%sudo ALL=(ALL) NOPASSWD: ALL'
+    validate: '/usr/sbin/visudo -cf %s'
